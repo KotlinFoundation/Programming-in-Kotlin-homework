@@ -1,3 +1,6 @@
+[![Gradle Build](https://github.com/Belosnegova/Programming-in-Kotlin-homework-1/actions/workflows/gradle-build.yml/badge.svg)](https://github.com/Belosnegova/Programming-in-Kotlin-homework-1/actions/workflows/gradle-build.yml)
+[![Gradle Build With Detekt](https://github.com/Belosnegova/Programming-in-Kotlin-homework-1/actions/workflows/gradle-build-with-detekt.yml/badge.svg)](https://github.com/Belosnegova/Programming-in-Kotlin-homework-1/actions/workflows/gradle-build-with-detekt.yml)
+
 ## Task 1. Object-oriented programming
 
 In this homework task, you need to implement the well-known [Alias](https://en.wikipedia.org/wiki/Alias_(board_game)) game. The result will be a web application that allows you to play Alias with friends. Since the client (front-end) and interaction with the server have already been implemented, you only need to implement the API.
