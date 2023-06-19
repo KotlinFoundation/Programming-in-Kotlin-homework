@@ -1,0 +1,295 @@
+.font-link-base {
+  font-family: 'Inter', sans-serif;
+  color: black;
+}
+
+.font-link-bold {
+  font-family: 'Inter', sans-serif;
+  font-weight: 900;
+}
+
+.font-link-light {
+  font-family: 'Inter', sans-serif;
+  font-weight: 200;
+}
+
+.App-cards {
+  height: 20vmin;
+  pointer-events: none;
+}
+
+.App-big-name {
+  font-size: 10vmin;
+  margin-top: 2vmin;
+  margin-bottom: 2vmin;
+}
+
+.App-small-name {
+  font-size: 4vmin;
+  margin-top: 0;
+  margin-bottom: 2vmin;
+  color: white;
+}
+
+.App-teams-p {
+  color: black;
+  font-size: 5vmin;
+}
+
+.App-cursor-none {
+  cursor: default !important;
+}
+
+.App-cursor-pointer {
+  cursor: pointer !important;
+}
+
+.App-teams-p-number {
+  color: black;
+  font-size: 2vmin;
+  padding-left: 1.5vmin;
+  padding-right: 1.5vmin;
+  padding-top: 0;
+  margin-top: 1.5vmin;
+  margin-bottom: 1.5vmin;
+}
+
+.App-teams-p-number-border {
+  margin: 0;
+  padding-left: 1.5vmin;
+  padding-right: 1.5vmin;
+  border-radius: 10vmin;
+  border: 2px solid transparent;
+}
+
+.App-teams-p-number-border:hover {
+  border-radius: 10vmin;
+  border: 2px solid #6B57FF;
+}
+
+.App-teams-p-number-border-active {
+  border-radius: 10vmin;
+  border: 2px solid #6B57FF;
+}
+
+.App-teams-p-number-border-small-padding-left {
+  padding-left: 1vmin;
+}
+
+.App-teams-p-number-border-small-padding-right {
+  padding-right: 1vmin;
+}
+
+.App-header-base {
+  font-size: calc(10px + 2vmin);
+  color: white;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.App-header-white {
+  background-image: url('assets/Kotlin_Alias_bg_white.svg');
+}
+
+.App-header-black {
+  background-image: url('assets/Kotlin_Alias_bg.svg');
+}
+
+.App-cards-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.App-buttons-container {
+  min-height: 10vmin;
+  display: block;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.App-teams-number-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border: solid #bababa 2px;
+  border-radius: 10vmin;
+  margin-top: 5vmin;
+  margin-bottom: 4vmin;
+}
+
+.App-teams-buttons-container {
+  min-height: 0;
+  margin-top: 0;
+}
+
+.App-game-p {
+  color: black;
+  font-family: 'Inter', sans-serif;
+  font-size: 3vmin;
+}
+
+.App-display-flex {
+  display: flex;
+}
+
+.App-margin-left {
+  margin-left: 1vmin;
+}
+
+.App-margin-right {
+  margin-right: 1vmin;
+}
+
+.App-button-base {
+  height: 10vmin;
+  margin-top: 5vmin;
+  background-repeat: no-repeat;
+  background-size: auto;
+  background-color: transparent;
+  border: none;
+  background-position: center;
+  cursor:pointer;
+  color: white;
+  font-size: 100%;
+  font-family: 'Inter', sans-serif;
+}
+
+.App-button-start {
+  background-image: url('assets/play_button.svg');
+  width: 30vmin;
+  height: 6vmin;
+  margin-top: 4vmin;
+  background-size: contain;
+  margin-bottom: 1vmin;
+}
+
+.App-stat-button {
+  margin-top: 0;
+  width: 30vmin;
+  height: 3vmin;
+}
+
+.App-stat-button-p {
+  font-size: 1.5vmin;
+}
+
+.App-no-margin {
+  margin: 0;
+}
+
+.App-no-top-margin {
+  margin-top: 0;
+}
+
+.App-no-bottom-margin {
+  margin-bottom: 0;
+}
+
+.App-top-margin {
+  margin-top: 5vmin;
+}
+
+.App-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: inherit;
+}
+
+.App-container-min-height {
+  min-height: 35vmin;
+}
+
+.App-word-container {
+  border: none;
+  background-position: center;
+  font-family: 'Inter', sans-serif;
+  height: 5vmin;
+  font-size: 2.2vmin;
+  margin-left: -1.5vmin;
+}
+
+.App-game-stat {
+  color: black;
+  font-size: 6vmin;
+  margin-top: 0;
+  margin-bottom: 2vmin;
+}
+
+.App-leaderboard-p {
+  color: black;
+  font-size: 3vmin;
+  margin-top: 0;
+  margin-bottom: 2vmin;
+}
+
+.App-word-container-cards {
+  background-image: url('assets/Kotlin_Alias_cards.svg');
+  background-repeat: no-repeat;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 30vmin;
+  width: 30vmin;
+  margin-top: 0;
+  margin-bottom: 2vmin;
+  background-size: contain;
+}
+
+.App-teams-button-base {
+  width: 15vmin;
+  height: 6vmin;
+  margin-top: 0;
+}
+
+.App-teams-button-back {
+  background-image: url('assets/back_button.svg');
+  background-size: contain;
+}
+
+.App-teams-button-next {
+  background-image: url('assets/next_button.svg');
+  background-size: contain;
+}
+
+.App-game-button-base {
+  width: 15vmin;
+  margin-top: 0;
+  height: 5vmin;
+}
+
+.App-game-button-base-skip {
+  margin-right: 0.5vmin;
+  background-image: url('assets/skip_button.svg');
+  background-size: contain;
+}
+
+.App-game-button-base-next {
+  margin-left: 0.5vmin;
+  background-image: url('assets/new_card_button.svg');
+  background-size: contain;
+}
+
+.App-game-button-bottom-base {
+  width: 16vmin;
+  margin-top: -2vmin;
+  height: 5vmin;
+}
+
+.App-game-button-bottom-next-round {
+  background-image: url('assets/new_round_button.svg');
+  background-size: contain;
+}
+
+.App-game-button-bottom-finish {
+  background-image: url('assets/finish_game_button.svg');
+  background-size: contain;
+}
