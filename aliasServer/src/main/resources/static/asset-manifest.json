@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/static/css/main.9629e922.css",
+    "main.js": "/static/js/main.6c8fdc59.js",
+    "static/js/787.281e1195.chunk.js": "/static/js/787.281e1195.chunk.js",
+    "static/media/Kotlin_Alias_cover.svg": "/static/media/Kotlin_Alias_cover.4088f27960b405fba209d6531940b03e.svg",
+    "static/media/finish_game_button.svg": "/static/media/finish_game_button.5802af17c68793ad5611.svg",
+    "static/media/play_button.svg": "/static/media/play_button.aad770749eabbe8ac9b1.svg",
+    "static/media/skip_button.svg": "/static/media/skip_button.3b78db6c5c11557f0ee9.svg",
+    "static/media/new_card_button.svg": "/static/media/new_card_button.a012fc749601cbfe3962.svg",
+    "static/media/new_round_button.svg": "/static/media/new_round_button.dddfee315cc11fb67e94.svg",
+    "static/media/Kotlin_Alias_cards.svg": "/static/media/Kotlin_Alias_cards.d9e02eb58caef72a698d.svg",
+    "static/media/back_button.svg": "/static/media/back_button.578d2b1544fe8bc2e2ec.svg",
+    "static/media/next_button.svg": "/static/media/next_button.4aa1de9e8ebd7a1be0ac.svg",
+    "index.html": "/index.html",
+    "static/media/Kotlin_Alias_bg.svg": "/static/media/Kotlin_Alias_bg.36ac84bcfc4b1fa64b64.svg",
+    "static/media/Kotlin_Alias_bg_white.svg": "/static/media/Kotlin_Alias_bg_white.00acddcc6609eb49c481.svg",
+    "main.9629e922.css.map": "/static/css/main.9629e922.css.map",
+    "main.6c8fdc59.js.map": "/static/js/main.6c8fdc59.js.map",
+    "787.281e1195.chunk.js.map": "/static/js/787.281e1195.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9629e922.css",
+    "static/js/main.6c8fdc59.js"
+  ]
+}
