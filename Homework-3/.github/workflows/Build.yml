@@ -1,0 +1,56 @@
+name: Build
+
+on: [pull_request, workflow_dispatch]
+
+jobs:
+  diktat:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3.0.0
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3.0.0
+        with:
+          java-version: 11
+          distribution: liberica
+
+      - name: Gradle Wrapper Validation
+        uses: gradle/wrapper-validation-action@v1.0.4
+      - uses: gradle/gradle-build-action@v2.1.5
+        with:
+          arguments: diktatCheckAll --stacktrace
+
+  detekt:
+    needs: diktat
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3.0.0
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3.0.0
+        with:
+          java-version: 11
+          distribution: liberica
+
+      - name: Gradle Wrapper Validation
+        uses: gradle/wrapper-validation-action@v1.0.4
+      - uses: gradle/gradle-build-action@v2.1.5
+        with:
+          arguments: detektCheckAll --stacktrace
+  task1:
+    needs: detekt
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3.0.0
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3.0.0
+        with:
+          java-version: 11
+          distribution: liberica
+
+      - name: Gradle Wrapper Validation
+        uses: gradle/wrapper-validation-action@v1.0.4
+      - uses: gradle/gradle-build-action@v2.1.5
+        with:
+          arguments: :module1:test --stacktrace

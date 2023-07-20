@@ -1,0 +1,147 @@
+name: Build
+
+on: [pull_request, workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3.0.0
+      - name: Omg
+        run: git status
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3.0.0
+        with:
+          java-version: 11
+          distribution: liberica
+
+      - name: Gradle Wrapper Validation
+        uses: gradle/wrapper-validation-action@v1.0.4
+      - uses: gradle/gradle-build-action@v2.1.5
+        with:
+          arguments: build --stacktrace -x test
+
+  diktat:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3.0.0
+        with:
+          ref: ${{ inputs.prev-ref }}
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3.0.0
+        with:
+          java-version: 11
+          distribution: liberica
+
+      - name: Gradle Wrapper Validation
+        uses: gradle/wrapper-validation-action@v1.0.4
+      - uses: gradle/gradle-build-action@v2.1.5
+        with:
+          arguments: diktatCheck
+
+      - name: Archive diktat results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: diktat-report
+          path: build/reports/diktat.html
+
+  detekt:
+    needs: diktat
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3.0.0
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3.0.0
+        with:
+          java-version: 11
+          distribution: liberica
+
+      - name: Gradle Wrapper Validation
+        uses: gradle/wrapper-validation-action@v1.0.4
+      - uses: gradle/gradle-build-action@v2.1.5
+        with:
+          arguments: customDetekt --stacktrace
+
+      - name: Archive detekt results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: detekt-report
+          path: build/reports/detekt.html
+
+  base:
+    needs: detekt
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3.0.0
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3.0.0
+        with:
+          java-version: 11
+          distribution: liberica
+
+      - name: Gradle Wrapper Validation
+        uses: gradle/wrapper-validation-action@v1.0.4
+      - uses: gradle/gradle-build-action@v2.1.5
+        with:
+          arguments: test -i --rerun-tasks --tests org.jub.kotlin.hometask3.AvlTreeTest
+
+  map:
+    needs: base
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3.0.0
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3.0.0
+        with:
+          java-version: 11
+          distribution: liberica
+
+      - name: Gradle Wrapper Validation
+        uses: gradle/wrapper-validation-action@v1.0.4
+      - uses: gradle/gradle-build-action@v2.1.5
+        with:
+          arguments: test -i --rerun-tasks --tests org.jub.kotlin.hometask3.AvlTreeMapTest
+
+  mutable-map:
+    needs: map
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3.0.0
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3.0.0
+        with:
+          java-version: 11
+          distribution: liberica
+
+      - name: Gradle Wrapper Validation
+        uses: gradle/wrapper-validation-action@v1.0.4
+      - uses: gradle/gradle-build-action@v2.1.5
+        with:
+          arguments: test -i --rerun-tasks --tests org.jub.kotlin.hometask3.MutableAvlTreeMapTest
+
+  list:
+    needs: base
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3.0.0
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3.0.0
+        with:
+          java-version: 11
+          distribution: liberica
+
+      - name: Gradle Wrapper Validation
+        uses: gradle/wrapper-validation-action@v1.0.4
+      - uses: gradle/gradle-build-action@v2.1.5
+        with:
+          arguments: test -i --rerun-tasks --tests org.jub.kotlin.hometask3.AvlTreeListTest
