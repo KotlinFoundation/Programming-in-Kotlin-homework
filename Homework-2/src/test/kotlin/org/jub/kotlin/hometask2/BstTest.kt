@@ -8,49 +8,49 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
-class AvlTreeTest {
+class BstTest {
     @RepeatedTest(TEST_ITERATIONS)
     fun maximumKey() {
         val values = getSetOfRandomValues()
-        val avl: AvlTree<Int, Double> = getAvlTree(values.withDoubles)
-        assertEquals(values.max(), avl.maximumKey(), "Wrong max key")
+        val bst: BalancedSearchTree<Int, Double> = getBst(values.withDoubles)
+        assertEquals(values.max(), bst.maximumKey(), "Wrong max key")
     }
 
     @RepeatedTest(TEST_ITERATIONS)
     fun minimumKey() {
         val values = getSetOfRandomValues()
-        val avl: AvlTree<Int, Double> = getAvlTree(values.withDoubles)
-        assertEquals(values.min(), avl.minimumKey(), "Wrong min key")
+        val bst: BalancedSearchTree<Int, Double> = getBst(values.withDoubles)
+        assertEquals(values.min(), bst.minimumKey(), "Wrong min key")
     }
 
     @RepeatedTest(TEST_ITERATIONS)
     fun maximumValue() {
         val values = getSetOfRandomValues()
-        val avl: AvlTree<Int, Double> = getAvlTree(values.withDoubles)
-        assertEquals(values.max().toDouble(), avl.maximumValue(), "Wrong max value")
+        val bst: BalancedSearchTree<Int, Double> = getBst(values.withDoubles)
+        assertEquals(values.max().toDouble(), bst.maximumValue(), "Wrong max value")
     }
 
     @RepeatedTest(TEST_ITERATIONS)
     fun minimumValue() {
         val values = getSetOfRandomValues()
-        val avl: AvlTree<Int, Double> = getAvlTree(values.withDoubles)
-        assertEquals(values.min().toDouble(), avl.minimumValue(), "Wrong min value")
+        val bst: BalancedSearchTree<Int, Double> = getBst(values.withDoubles)
+        assertEquals(values.min().toDouble(), bst.minimumValue(), "Wrong min value")
     }
 
     @RepeatedTest(TEST_ITERATIONS)
     fun minmaxThrows() {
-        val avl: AvlTree<Int, Double> = getAvlTree(emptyList())
+        val bst: BalancedSearchTree<Int, Double> = getBst(emptyList())
         assertThrows<Exception>("Empty tree should throw") {
-            avl.minimumValue()
+            bst.minimumValue()
         }
         assertThrows<Exception>("Empty tree should throw") {
-            avl.maximumValue()
+            bst.maximumValue()
         }
         assertThrows<Exception>("Empty tree should throw") {
-            avl.minimumKey()
+            bst.minimumKey()
         }
         assertThrows<Exception>("Empty tree should throw") {
-            avl.maximumKey()
+            bst.maximumKey()
         }
     }
 
@@ -60,11 +60,11 @@ class AvlTreeTest {
     fun getHeight() {
         for (size in 50..2050 step 100) {
             val values = getSetOfRandomValues(size)
-            val avl: AvlTree<Int, Double> = getAvlTree(values.withDoubles)
-            println(avl.height)
+            val bst: BalancedSearchTree<Int, Double> = getBst(values.withDoubles)
+            println(bst.height)
             println(size)
-            assertTrue(avl.height > floor(log2(size)))
-            assertTrue(avl.height < log2(size) * log2(size))
+            assertTrue(bst.height > floor(log2(size)))
+            assertTrue(bst.height < log2(size) * log2(size))
         }
     }
 }

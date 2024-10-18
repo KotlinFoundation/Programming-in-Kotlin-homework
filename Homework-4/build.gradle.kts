@@ -1,14 +1,45 @@
+import buildutils.configureDetekt
+import buildutils.createDetektTask
+import buildutils.configureDiktat
+import buildutils.createDiktatTask
+
 plugins {
-    `kotlin-dsl`
+    kotlin("jvm")
+    application
 }
+
+group = "me.user"
+version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
-    google()
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.10")
-    implementation("io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.20.0")
-    implementation("org.cqfn.diktat:diktat-gradle-plugin:1.1.0")
+    testImplementation(kotlin("test"))
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+}
+
+tasks.test {
+    useJUnitPlatform()
+}
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+    kotlinOptions.jvmTarget = "1.8"
+}
+
+application {
+    mainClass.set("MainKt")
+}
+
+project.configureDiktat()
+project.createDiktatTask()
+project.configureDetekt()
+project.createDetektTask()
+
+tasks.register("githubWorkflow") {
+    group = "verification"
+    dependsOn("diktatCheckAll")
+    dependsOn("detektCheckAll")
+    dependsOn("test")
 }

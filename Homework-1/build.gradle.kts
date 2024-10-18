@@ -133,16 +133,6 @@ configure(subprojects.filter { frontendSuffix in it.name }) {
         plugin("org.siouan.frontend-jdk11")
     }
 
-    frontend {
-        nodeDistributionProvided.set(false)
-        nodeVersion.set("16.17.1")
-
-        yarnEnabled.set(true)
-        yarnVersion.set("3.0.0")
-
-        installScript.set("install")
-    }
-
     val addCommonTypesTask = tasks.register<Exec>("addCommonTypes") {
         outputs.upToDateWhen { false }
         workingDir = projectDir

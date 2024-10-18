@@ -10,10 +10,10 @@ class MutableIteratorTest {
     fun iterate() {
         val values = getSetOfRandomValues().toList()
         val doubleValues = values.map { it.toDouble() }
-        val avl: MutableAvlTreeMap<Int, Double> = getMutableAvlTreeMap(values.zip(doubleValues))
+        val bst: MutableBalancedSearchTreeMap<Int, Double> = getMutableBstMap(values.zip(doubleValues))
         val sortedValues = values.sorted()
         val valIterator = sortedValues.iterator()
-        val iterator = avl.iterator()
+        val iterator = bst.iterator()
         repeat(values.size) {
             assert(iterator.hasNext())
             assertEquals(valIterator.next(), iterator.next().key)
@@ -25,16 +25,16 @@ class MutableIteratorTest {
     fun remove() {
         val values = getSetOfRandomValues().toList()
         val doubleValues = values.map { it.toDouble() }
-        val avl: MutableAvlTreeMap<Int, Double> = getMutableAvlTreeMap(values.zip(doubleValues))
+        val bst: MutableBalancedSearchTreeMap<Int, Double> = getMutableBstMap(values.zip(doubleValues))
         val sortedValues = values.sorted()
         val valIterator = sortedValues.iterator()
-        val iterator = avl.iterator()
+        val iterator = bst.iterator()
         repeat(values.size) {
             assert(iterator.hasNext())
             val currValue = valIterator.next()
             assertEquals(currValue, iterator.next().key)
             iterator.remove()
-            assertFalse(avl.contains(currValue))
+            assertFalse(bst.contains(currValue))
         }
         assertFalse(iterator.hasNext())
     }
@@ -43,8 +43,8 @@ class MutableIteratorTest {
     fun callRemoveWithoutNext() {
         val values = getSetOfRandomValues().toList()
         val doubleValues = values.map { it.toDouble() }
-        val avl: MutableAvlTreeMap<Int, Double> = getMutableAvlTreeMap(values.zip(doubleValues))
-        val iterator = avl.iterator()
+        val bst: MutableBalancedSearchTreeMap<Int, Double> = getMutableBstMap(values.zip(doubleValues))
+        val iterator = bst.iterator()
         assertThrows<IllegalStateException> {
             iterator.remove()
         }
@@ -55,13 +55,13 @@ class MutableIteratorTest {
         val values = getSetOfRandomValues().toList()
         if (values.isEmpty()) return
         val doubleValues = values.map { it.toDouble() }
-        val avl: MutableAvlTreeMap<Int, Double> = getMutableAvlTreeMap(values.zip(doubleValues))
-        val iterator = avl.iterator()
+        val bst: MutableBalancedSearchTreeMap<Int, Double> = getMutableBstMap(values.zip(doubleValues))
+        val iterator = bst.iterator()
         iterator.next()
-        println(avl.size)
+        println(bst.size)
         iterator.remove()
-        println(avl.size)
-        assertEquals(values.size - 1, avl.size)
+        println(bst.size)
+        assertEquals(values.size - 1, bst.size)
         assertThrows<IllegalStateException> {
             iterator.remove()
         }
@@ -72,10 +72,10 @@ class MutableIteratorTest {
         val values = getSetOfRandomValues().toList()
         if (values.size < 2) return
         val doubleValues = values.map { it.toDouble() }
-        val avl: MutableAvlTreeMap<Int, Double> = getMutableAvlTreeMap(values.zip(doubleValues))
-        val iterator = avl.iterator()
+        val bst: MutableBalancedSearchTreeMap<Int, Double> = getMutableBstMap(values.zip(doubleValues))
+        val iterator = bst.iterator()
         iterator.next()
-        avl.remove(values.min())
+        bst.remove(values.min())
         assertThrows<ConcurrentModificationException> {
             iterator.next()
         }
