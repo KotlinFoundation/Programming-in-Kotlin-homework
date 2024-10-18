@@ -7,17 +7,17 @@ import kotlin.test.assertFalse
 import kotlin.test.assertNotEquals
 import kotlin.test.assertTrue
 
-internal class AvlTreeListTest {
+internal class BstListTest {
     @RepeatedTest(TEST_ITERATIONS)
     fun contains() {
         val values = getSetOfRandomValues()
-        val avl: AvlTreeList<Int, Double> = getAvlTreeList(values.withDoubles)
+        val bst: BalancedSearchTreeList<Int, Double> = getBstList(values.withDoubles)
         values.forEach {
-            assertTrue(avl.contains(it.toDouble()))
+            assertTrue(bst.contains(it.toDouble()))
         }
         val otherValues = getSetOfRandomValues()
         otherValues.filter { it !in values }.forEach {
-            assertFalse(avl.contains(it.toDouble()))
+            assertFalse(bst.contains(it.toDouble()))
         }
     }
 
@@ -25,11 +25,11 @@ internal class AvlTreeListTest {
     fun containsAll() {
         val values = getSetOfRandomValues().toList()
         val doubleValues = values.map { it.toDouble() }
-        val avl: AvlTreeList<Int, Double> = getAvlTreeList(values.zip(doubleValues))
-        assertTrue(avl.containsAll(doubleValues + doubleValues))
+        val bst: BalancedSearchTreeList<Int, Double> = getBstList(values.zip(doubleValues))
+        assertTrue(bst.containsAll(doubleValues + doubleValues))
         val otherValues = getSetOfRandomValues()
         otherValues.filter { it !in values }.forEach {
-            assertFalse(avl.containsAll(doubleValues + it.toDouble() + doubleValues))
+            assertFalse(bst.containsAll(doubleValues + it.toDouble() + doubleValues))
         }
     }
 
@@ -37,9 +37,9 @@ internal class AvlTreeListTest {
     fun get() {
         val values = getSetOfRandomValues().toList()
         val doubleValues = values.map { it.toDouble() }
-        val avl: AvlTreeList<Int, Double> = getAvlTreeList(values.zip(doubleValues))
+        val bst: BalancedSearchTreeList<Int, Double> = getBstList(values.zip(doubleValues))
         values.sorted().forEachIndexed { index, value ->
-            assertEquals(value.toDouble(), avl[index])
+            assertEquals(value.toDouble(), bst[index])
         }
     }
 
@@ -47,15 +47,15 @@ internal class AvlTreeListTest {
     @RepeatedTest(TEST_ITERATIONS)
     fun getThrows() {
         val values = getSetOfRandomValues()
-        val avl: AvlTreeList<Int, Double> = getAvlTreeList(values.withDoubles)
+        val bst: BalancedSearchTreeList<Int, Double> = getBstList(values.withDoubles)
         for (i in 0..TEST_SET_SIZE) {
             assertThrows<IndexOutOfBoundsException> {
-                avl[avl.size + i]
+                bst[bst.size + i]
             }
         }
-        for (i in -1 downTo -avl.size) {
+        for (i in -1 downTo -bst.size) {
             assertThrows<IndexOutOfBoundsException> {
-                avl[i]
+                bst[i]
             }
         }
     }
@@ -63,23 +63,23 @@ internal class AvlTreeListTest {
     @RepeatedTest(TEST_ITERATIONS)
     fun listIterator() {
         val values = getSetOfRandomValues().toList().sorted()
-        val avl: AvlTreeList<Int, Double> = getAvlTreeList(values.withDoubles)
+        val bst: BalancedSearchTreeList<Int, Double> = getBstList(values.withDoubles)
         val valuesIterator = values.listIterator()
-        val avlIterator = avl.listIterator()
+        val bstIterator = bst.listIterator()
         for (i in values.indices) {
-            assertTrue(avlIterator.hasNext())
-            assertEquals(valuesIterator.nextIndex(), avlIterator.nextIndex())
-            assertEquals(valuesIterator.next().toDouble(), avlIterator.next())
+            assertTrue(bstIterator.hasNext())
+            assertEquals(valuesIterator.nextIndex(), bstIterator.nextIndex())
+            assertEquals(valuesIterator.next().toDouble(), bstIterator.next())
         }
         for (i in values.size downTo values.size.div(2)) {
-            assertTrue(avlIterator.hasPrevious())
-            assertEquals(valuesIterator.previousIndex(), avlIterator.previousIndex())
-            assertEquals(valuesIterator.previous().toDouble(), avlIterator.previous())
+            assertTrue(bstIterator.hasPrevious())
+            assertEquals(valuesIterator.previousIndex(), bstIterator.previousIndex())
+            assertEquals(valuesIterator.previous().toDouble(), bstIterator.previous())
         }
         for (i in values.size.div(2)..values.size.div(4)) {
-            assertTrue(avlIterator.hasNext())
-            assertEquals(valuesIterator.nextIndex(), avlIterator.nextIndex())
-            assertEquals(valuesIterator.next().toDouble(), avlIterator.next())
+            assertTrue(bstIterator.hasNext())
+            assertEquals(valuesIterator.nextIndex(), bstIterator.nextIndex())
+            assertEquals(valuesIterator.next().toDouble(), bstIterator.next())
         }
     }
 
@@ -88,23 +88,23 @@ internal class AvlTreeListTest {
         val valuesSet = getSetOfRandomValues()
         val values = valuesSet.toList()
         val entries = values.flatMap { value -> List(3) { index -> "$value #$index" to value } }.sortedBy { it.first }
-        val avl: AvlTreeList<String, Int> = getAvlTreeList(entries.shuffled())
+        val bst: BalancedSearchTreeList<String, Int> = getBstList(entries.shuffled())
         val encounteredCount = mutableMapOf<Int, Int>()
         entries.forEachIndexed { index, (_, value) ->
             when (val count = encounteredCount.getOrDefault(value, 0)) {
                 0, 1 -> {
                     encounteredCount[value] = count + 1
-                    assertNotEquals(index, avl.lastIndexOf(value))
+                    assertNotEquals(index, bst.lastIndexOf(value))
                 }
 
                 else -> {
-                    assertEquals(index, avl.lastIndexOf(value))
+                    assertEquals(index, bst.lastIndexOf(value))
                 }
             }
         }
 
         getSetOfRandomValues().filter { it !in values }.forEach {
-            assertEquals(-1, avl.lastIndexOf(it))
+            assertEquals(-1, bst.lastIndexOf(it))
         }
     }
 
@@ -113,19 +113,19 @@ internal class AvlTreeListTest {
         val valuesSet = getSetOfRandomValues()
         val values = valuesSet.toList()
         val entries = values.flatMap { value -> List(3) { index -> "$value #$index" to value } }.sortedBy { it.first }
-        val avl: AvlTreeList<String, Int> = getAvlTreeList(entries)
+        val bst: BalancedSearchTreeList<String, Int> = getBstList(entries)
         val encountered = mutableSetOf<Int>()
         entries.forEachIndexed { index, (_, value) ->
             if (value !in encountered) {
                 encountered.add(value)
-                assertEquals(index, avl.indexOf(value))
+                assertEquals(index, bst.indexOf(value))
             } else {
-                assertNotEquals(index, avl.indexOf(value))
+                assertNotEquals(index, bst.indexOf(value))
             }
         }
 
         getSetOfRandomValues().filter { it !in values }.forEach {
-            assertEquals(-1, avl.indexOf(it))
+            assertEquals(-1, bst.indexOf(it))
         }
     }
 }

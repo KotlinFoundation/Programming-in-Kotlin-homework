@@ -90,7 +90,7 @@ jobs:
         uses: gradle/wrapper-validation-action@v1.0.4
       - uses: gradle/gradle-build-action@v2.1.5
         with:
-          arguments: test -i --rerun-tasks --tests org.jub.kotlin.hometask3.AvlTreeTest
+          arguments: test -i --rerun-tasks --tests org.jub.kotlin.hometask2.BstTest
 
   map:
     needs: base
@@ -108,7 +108,7 @@ jobs:
         uses: gradle/wrapper-validation-action@v1.0.4
       - uses: gradle/gradle-build-action@v2.1.5
         with:
-          arguments: test -i --rerun-tasks --tests org.jub.kotlin.hometask3.AvlTreeMapTest
+          arguments: test -i --rerun-tasks --tests org.jub.kotlin.hometask2.BstMapTest
 
   mutable-map:
     needs: map
@@ -126,7 +126,7 @@ jobs:
         uses: gradle/wrapper-validation-action@v1.0.4
       - uses: gradle/gradle-build-action@v2.1.5
         with:
-          arguments: test -i --rerun-tasks --tests org.jub.kotlin.hometask3.MutableAvlTreeMapTest
+          arguments: test -i --rerun-tasks --tests org.jub.kotlin.hometask2.MutableBstMapTest
 
   list:
     needs: base
@@ -144,4 +144,4 @@ jobs:
         uses: gradle/wrapper-validation-action@v1.0.4
       - uses: gradle/gradle-build-action@v2.1.5
         with:
-          arguments: test -i --rerun-tasks --tests org.jub.kotlin.hometask3.AvlTreeListTest
+          arguments: test -i --rerun-tasks --tests org.jub.kotlin.hometask2.BstListTest

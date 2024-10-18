@@ -1,5 +1,3 @@
-[![HW4](https://github.com/Belosnegova/Programming-in-Kotlin-homework-4/actions/workflows/HW4.yml/badge.svg)](https://github.com/Belosnegova/Programming-in-Kotlin-homework-4/actions/workflows/HW4.yml)
-
 # Task 4. Non-blocking UI simulator
 
 Console application with non-blocking input that writes its results to a file.
@@ -37,4 +35,4 @@ Run Detekt locally: `./gradlew detektCheckAll`;
 
 Run Diktat locally: `./gradlew diktatCheckAll`;
 
-Run the whole GitHub workflow locally: `./gradlew githubWorkflow`.
+Run the whole Github workflow locally: `./gradlew githubWorkflow`.

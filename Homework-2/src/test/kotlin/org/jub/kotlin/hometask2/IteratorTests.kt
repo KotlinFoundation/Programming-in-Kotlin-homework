@@ -9,10 +9,10 @@ class IteratorTests {
     fun iterate() {
         val values = getSetOfRandomValues().toList()
         val doubleValues = values.map { it.toDouble() }
-        val avl: AvlTreeMap<Int, Double> = getAvlTreeMap(values.zip(doubleValues))
+        val bst: BalancedSearchTreeMap<Int, Double> = getBstMap(values.zip(doubleValues))
         val sortedValues = values.sorted()
         val valIterator = sortedValues.iterator()
-        val iterator = avl.iterator()
+        val iterator = bst.iterator()
         repeat(values.size) {
             assert(iterator.hasNext())
             assertEquals(valIterator.next(), iterator.next().key)

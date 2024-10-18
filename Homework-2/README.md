@@ -1,12 +1,10 @@
-[![Build](https://github.com/Belosnegova/Programming-in-Kotlin-homework-2/actions/workflows/HW3.yml/badge.svg)](https://github.com/Belosnegova/Programming-in-Kotlin-homework-2/actions/workflows/HW3.yml)
-
 # Task 2. Balanced Search Tree
 
 Implement a generic BST (i.e. AVL, Cartesian tree, Splay). Using it, implement interfaces:
-- Map 
-- Mutable map
-- List: `subList()` can be __skipped__ or implemented via creating a separate tree, there are no tests for it
-- Bonus: Mutable list (you should write tests yourself)
+- [`Map`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/)
+- [`MutableMap`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-map/)
+- [`List`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list): [`subList`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/sub-list.html) can be __skipped__ or implemented via creating a separate tree, there are no tests for it
+- Bonus: [`MutableList`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/) (you should write tests yourself)
 
 ##  Implementation details
 
@@ -18,11 +16,11 @@ There are several interfaces you have to implement. Tests work with instances of
 
 ### Architecture and Inheritance
 
-We expect you to write some BST as a base class that implements the first interface from `Task.kt` file. Apart from methods in the interface, it should have core functionality of a BST: add and remove nodes in log(n) time. Notice that second type parameter `V`, which is the type of values, is not `Comparable`, hence `maximum/minimumValue` returns not the actual maximum or minimum, but the value which is assigned to `maximum/minimumKey` respectively.
+We expect you to write a self-balancing BST as a base class or interface that is a subtype of the first interface declared in the `Task.kt` file. Apart from methods in the interface, it should have the core functionality of a BST, meaning it should be possible to add and remove nodes with $O(\log(n))$ average or amortized time complexity. Notice that second type parameter `V`, which is the type of values, is not `Comparable`, hence `maximum/minimumValue` returns not the actual maximum or minimum, but the value which is assigned to `maximum/minimumKey` respectively.
 
 Most likely, you will need a separate `Node` class. 
 
-When you have a working BST, you can use it to implement other interfaces. `MutableMap` and `Map` share most of their code, so it is easier to only implement the mutable version and typecast it to read-only when needed.
+When you have a working BST, you can use it to implement other interfaces. `MutableMap` and `Map` share most of their code, so it is easier to only implement the mutable version, which will obviously implement the read-only version, too.
 
 You can make `List` and `Map` completely separate, or one can be inherited from the other, do what you find more comfortable.
 
@@ -30,7 +28,7 @@ __Note:__ `detekt` limits number of methods in a class. Please implement each in
 
 ### Access modifiers
 
-Throughout your solution pay close attention to visibility and inheritance modifiers. Imagine that you are writing a library that you are going to share with the public, do not forget about `sealed`, `internal` and extension functions.
+Throughout your solution, pay close attention to visibility and inheritance modifiers. Imagine that you are writing a library that you are going to share with the public, do not forget about `sealed`, `internal` and extension functions.
 
 ### Iterators
 
@@ -42,7 +40,7 @@ for (item in list) {
     list.removeLast()
 }
 ```
-This code will print 1 and then throw `ConcurrentModificationException`, because `for` loop creates an iterator, which is invalidated after an element is removed from the list. At the same time, code below works, and the list will be left empty as a result:
+This code will print 1 and then throw `ConcurrentModificationException`, because `for` loop creates an iterator, which is invalidated after an element is removed from the list. At the same time, the code below works, and the list will be left empty as a result:
 ```kotlin
 val list = mutableListOf(1, 2, 3)
 val it = list.iterator()
@@ -51,11 +49,19 @@ for (item in it) {
 }
 println(list) // []
 ```
-To learn how to achieve this you can look through [AbstractList code](https://hg.openjdk.org/jdk8/jdk8/jdk/file/tip/src/share/classes/java/util/AbstractList.java) and pay attention to `modCount` property.
+To learn how to achieve this, you can look through the methods of [`AbstractList`](https://github.com/openjdk/jdk/blob/master/src/java.base/share/classes/java/util/AbstractList.java) and pay attention to `modCount` property.
 
 ### Entries, Keys and Values
 
-Entries and other properties of `MutableMap` and `Map` are _views_ of the underlying collection. It means that they should not be a copy of the collection, but simply provide another way of access to the original collection. Example:
+The `entries`, `keys`, and `values` properties declared in `MutableMap` and `Map` are backed by the underlying map. It means that they should not store a copy of the tree's data, but provide another way of access to the original collection.
+
+To implement them correctly for `MutableMap`, the subsequent contracts must be adhered to:
+
+1. The structural changes of tree have to be reflected in entry, key, or value collections.
+1. When something is removed from such sets, it has to be reflected in the underlying collection. If an element is removed using `entries`, `keys`, `values` properties, then the according node has to be removed from the tree.
+1. Despite that the collections are mutable, addition support is not required: you can just throw [`UnsupportedOperationException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unsupported-operation-exception) in its implementation.
+
+Example:
 ```kotlin
 val simpleMap = mutableMapOf(1 to "a", 2 to "b")
 val entries = simpleMap.entries
@@ -64,7 +70,7 @@ simpleMap[3] = "c"
 println(entries) // [1=a, 2=b, 3=c], element is present in the entries set
 entries.removeIf { it.value == "b" }
 println(simpleMap) // {1=a, 3=c}, 2=b was removed from the map
-entries.add(SOMETHING) // throws java.lang.UnsupportedOperationException
+entries.add(SOMETHING) // throws UnsupportedOperationException
 ```
 
 ### Null safety
@@ -88,9 +94,9 @@ fun trueIfAllNotNull(value1: Type?, value2: Type?, value3: Type?): Boolean {
 
 You may have completed the `List` task, and have not implemented maps yet.
 Or you may have completed `Map`, but not `MutableMap`.
-In such cases you need to disable corresponding tests in order for the build to pass CI.
+In such cases, you need to disable corresponding tests in order for the build to pass CI.
 To do that, go to `projectDir/.github/workflows/HW3.yml`. 
-There is a list of jobs: build, diktat and so on. 
+There is a list of jobs: `build`, `diktat` and so on. 
 You can comment out/delete `map`, `mutable-map` or `list` (the whole block, not just the name) if you have not done that part yet.
 
 ## Detekt and Diktat
